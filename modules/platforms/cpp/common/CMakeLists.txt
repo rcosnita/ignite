@@ -39,6 +39,12 @@ if (WIN32)
     list(APPEND SOURCES os/win/src/common/concurrent_os.cpp
             os/win/src/common/platform_utils.cpp
             os/win/src/common/dynamic_load_os.cpp)
+elseif (APPLE)
+    set(OS_INCLUDE os/darwin/include)
+
+    list(APPEND SOURCES os/darwin/src/common/concurrent_os.cpp
+            os/darwin/src/common/platform_utils.cpp
+            os/darwin/src/common/dynamic_load_os.cpp)
 else()
     set(OS_INCLUDE os/linux/include)
 
@@ -60,7 +66,8 @@ if (WIN32)
 
     list(APPEND _target_libs ${TARGET}-objlib)
 else()
-    add_library(${TARGET} SHARED ${SOURCES})
+    add_library(${TARGET} STATIC ${SOURCES})
+	target_compile_options(${TARGET} PUBLIC -fPIC)
 endif()
 
 foreach(_target_lib IN LISTS _target_libs)

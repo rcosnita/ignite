@@ -58,7 +58,8 @@ else()
     list(APPEND SOURCES src/jni/os/linux/utils.cpp)
 endif()
 
-add_library(${TARGET} SHARED ${SOURCES})
+add_library(${TARGET} STATIC ${SOURCES})
+	target_compile_options(${TARGET} PUBLIC -fPIC)
 
 set_target_properties(${TARGET} PROPERTIES VERSION ${CMAKE_PROJECT_VERSION})
 

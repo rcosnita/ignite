@@ -46,6 +46,17 @@ if (WIN32)
             os/win/src/network/win_async_client_pool.cpp
             os/win/src/network/win_async_connecting_thread.cpp
             os/win/src/network/win_async_worker_thread.cpp)
+elseif (APPLE)
+    include_directories(os/darwin/src)
+
+    list(APPEND SOURCES
+            os/darwin/src/network/connecting_context.cpp
+            os/darwin/src/network/darwin_async_client.cpp
+            os/darwin/src/network/darwin_async_client_pool.cpp
+            os/darwin/src/network/darwin_async_worker_thread.cpp
+            os/darwin/src/network/tcp_socket_client.cpp
+            os/darwin/src/network/sockets.cpp
+            os/darwin/src/network/utils.cpp)
 else()
     include_directories(os/linux/src)
 
@@ -69,7 +80,8 @@ if (WIN32)
     
     set_target_properties(${TARGET} PROPERTIES OUTPUT_NAME "ignite.network")
 else()
-    add_library(${TARGET} SHARED ${SOURCES})
+    add_library(${TARGET} STATIC ${SOURCES})
+	target_compile_options(${TARGET} PUBLIC -fPIC)
 endif()
 
 foreach(_target_lib IN LISTS _target_libs)

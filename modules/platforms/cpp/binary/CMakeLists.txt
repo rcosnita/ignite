@@ -53,7 +53,8 @@ if (WIN32)
 
     set_target_properties(${TARGET} PROPERTIES OUTPUT_NAME "ignite.binary")
 else()
-    add_library(${TARGET} SHARED ${SOURCES})
+    add_library(${TARGET} STATIC ${SOURCES})
+	target_compile_options(${TARGET} PUBLIC -fPIC)
 endif()
 
 foreach(_target_lib IN LISTS _target_libs)

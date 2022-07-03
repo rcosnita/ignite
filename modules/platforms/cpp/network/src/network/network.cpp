@@ -19,8 +19,10 @@
 
 #ifdef _WIN32
 #   include "network/win_async_client_pool.h"
-#else // Other. Assume Linux
+#elifdef __linux__
 #   include "network/linux_async_client_pool.h"
+#else // ASSUME Darwin
+#   include "network/darwin_async_client_pool.h"
 #endif
 
 #include <ignite/network/network.h>

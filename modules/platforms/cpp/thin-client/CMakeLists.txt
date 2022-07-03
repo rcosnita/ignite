@@ -44,7 +44,8 @@ set(SOURCES src/impl/data_channel.cpp
         src/cache/query/query_fields_cursor.cpp
         src/cache/query/query_fields_row.cpp)
 
-add_library(${TARGET} SHARED ${SOURCES})
+add_library(${TARGET} STATIC ${SOURCES})
+	target_compile_options(${TARGET} PUBLIC -fPIC)
 
 set_target_properties(${TARGET} PROPERTIES VERSION ${CMAKE_PROJECT_VERSION})
 
